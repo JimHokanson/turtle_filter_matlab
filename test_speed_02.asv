@@ -1,4 +1,4 @@
-function test_speed_01()
+function test_speed_02()
 %
 %   Notes: memcpy on mac takes 100 ms for 1e8
 
@@ -8,43 +8,33 @@ function test_speed_01()
 %Std, openMP: 296, 433, 1273
 %             
 
-N = 5;
+N = 10;
 x = rand(1,1e8);
-[b,a] = cheby1(7,3,2000/100000);
+times = zeros(N,3,7);
+for j = 1:7
+[b,a] = cheby1(j,3,2000/100000);
 
-times = zeros(N,3);
+
 for i = 1:N
     tic
     y1 = filter(b,1,x);
-    times(i,1) = toc;
+    times(i,1,j) = toc;
     
     tic
     y2 = sl.array.mex_filter(b,1,x);
-    times(i,2) = toc;
+    times(i,2,j) = toc;
     
     tic
     y3 = turtle.filter(b,1,x);
-    times(i,3) = toc;
+    times(i,3,j) = toc;
+end
 end
 
+keyboard
 
-%How much slower when 'a' is used?
-%about 2x as long
-tic
-for i = 1:N
-    y = filter(b,a,x);
-end
-t4 = toc/N;
-
-tic
-for i = 1:N
-    y = sl.array.mex_filter(b,a,x);
-end
-t5 = toc/N;
-
-t1 = median(times(:,1));
-t2 = median(times(:,2));
-t3 = median(times(:,3));
+t1 = squeeze(median(times(:,1,:)));
+t1 = squeeze(median(times(:,1,:)));
+t1 = squeeze(median(times(:,1,:)));
 
 fprintf('%04.1f : ML FIR\n',1000*t1);
 fprintf('%04.1f : JS FIR\n',1000*t2);
