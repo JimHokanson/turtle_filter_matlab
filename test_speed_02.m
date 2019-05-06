@@ -1,28 +1,27 @@
 function test_speed_02()
 %
-       
-
-N = 10;
+  
+MIN_ORDER = 5;
+MAX_ORDER = 10;
+N = 1;
 data_length = 1e8;
 x = rand(1,data_length);
-times = zeros(N,3,7);
-for j = 1:7
-[b,a] = cheby1(j,3,2000/100000);
+times = zeros(N,3,MAX_ORDER);
+for j = MIN_ORDER:MAX_ORDER
+    [b,a] = cheby1(j,3,2000/100000);
+    for i = 1:N
+        tic
+        y1 = filter(b,1,x);
+        times(i,1,j) = toc;
 
+    %     tic
+    %     y2 = sl.array.mex_filter(b,1,x);
+    %     times(i,2,j) = toc;
 
-for i = 1:N
-    tic
-    y1 = filter(b,1,x);
-    times(i,1,j) = toc;
-    
-%     tic
-%     y2 = sl.array.mex_filter(b,1,x);
-%     times(i,2,j) = toc;
-    
-    tic
-    y3 = turtle.filter(b,1,x);
-    times(i,3,j) = toc;
-end
+        tic
+        y3 = turtle.filter(b,1,x);
+        times(i,3,j) = toc;
+    end
 end
 
 t1 = squeeze(median(times(:,1,:)));
