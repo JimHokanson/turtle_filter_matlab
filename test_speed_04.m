@@ -1,7 +1,7 @@
 function test_speed_04()
 %
 
-MIN_ORDER = 7;
+MIN_ORDER = 1;
 MAX_ORDER = 10;
 N = 5;
 data_length = 1e7;
@@ -56,9 +56,9 @@ title(sprintf('IIR for data length %d',data_length))
 
 
 subplot(1,2,2)
-plot(t1./t3)
+plot(t1./t4)
 hold on
-plot(t2./t3)
+plot(t2./t4)
 hold off
 ylabel('Speedup')
 legend({'vs ML','vs JS'})
