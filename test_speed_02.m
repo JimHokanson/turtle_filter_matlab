@@ -1,5 +1,11 @@
 function test_speed_02()
 %
+
+%{
+x = rand(1,1e7);
+[b,a] = cheby1(6,3,2000/100000);
+y3 = turtle.filter(b,1,x);
+%}
   
 MIN_ORDER = 5;
 MAX_ORDER = 10;

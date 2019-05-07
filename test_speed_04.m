@@ -3,7 +3,7 @@ function test_speed_04()
 
 MIN_ORDER = 1;
 MAX_ORDER = 10;
-N = 5;
+N = 10;
 data_length = 1e7;
 x = rand(1,data_length);
 x = ones(1,data_length);
