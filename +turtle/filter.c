@@ -217,13 +217,13 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 //Approach 1: Std
         
 if (s.HW_AVX2 && s.OS_AVX){
-    mexPrintf("AVX2\n");
+    //mexPrintf("AVX2\n");
     fir_avx2_std(STD_Call);
 }else if(s.HW_AVX2 && s.OS_AVX){
-    mexPrintf("AVX\n");
+    //mexPrintf("AVX\n");
     fir_avx_std(STD_Call);
 }else{
-    mexPrintf("AVX\n");
+    //mexPrintf("SSE\n");
     fir_sse_std(STD_Call);
 } 	
 
