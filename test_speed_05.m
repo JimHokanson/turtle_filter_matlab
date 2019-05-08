@@ -1,4 +1,4 @@
-function test_speed_04()
+function test_speed_05()
 %
 
 MIN_ORDER = 1;
@@ -27,15 +27,15 @@ for i = 1:N
         times(i,2,j) = toc;
         
         tic
-        y2 = turtle.filter(b,a,x,0);
+        y2 = turtle.filter(b,a,x,2,0);
         times(i,3,j) = toc;
 
         tic
-        y3 = turtle.filter(b,a,x,1);
+        y3 = turtle.filter(b,a,x,2,1);
         times(i,4,j) = toc;
         
         tic
-        y4 = turtle.filter(b,a,x,2);
+        y4 = turtle.filter(b,a,x,2,2);
         times(i,5,j) = toc;
     end
 end
@@ -58,7 +58,7 @@ plot(1000*t5)
 hold off
 legend({'ML','JS','Me0','Me1','Me2'})
 ylabel(sprintf('Execution times (ms)'))
-title(sprintf('IIR for data length %d',data_length))
+title(sprintf('IIR for data length %d, varying SIMD',data_length))
 
 
 subplot(1,2,2)
